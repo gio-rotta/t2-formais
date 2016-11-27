@@ -1,0 +1,194 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link href="vendor/bootstrap.css" rel="stylesheet">
+	</head>
+	<style>
+		body {
+			padding: 10px;
+		}
+
+		.panel-body, body {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+		}
+
+		.main-panel {
+			display: flex;
+		}
+
+		.panel {
+			margin-top: 10px;
+			flex-grow: 1;
+		}
+
+		.title {
+			padding: 0 10px;
+		}
+
+		.flex {
+			display: flex;
+			flex-grow: 1;
+		}
+
+		.er-validador {
+			height: 20px;
+		}
+
+		.tabela-automato {
+			width: 100%;
+			text-align: center;
+		}
+
+		.tabela-automato th {
+			padding: 10px;
+			background-color: #ccc;
+			text-align: center;
+		}
+
+		.tabela-automato td {
+			padding: 5px;
+			text-align: center;
+		}
+
+		.tabela-automato tr:nth-child(odd) {
+			background-color: #eee;
+		}
+
+		.coluna-nome {
+			text-align: left !important;
+		}
+
+		.coluna-inicio, .coluna-final {
+			width: 5%; 
+			text-align: center !important;
+		}
+
+		#grafo-automato-1, #grafo-automato-2 {
+		   max-width: 500px;
+		   height: 300px;
+		   margin: auto;
+		}
+
+		input[type=file] {
+			width: 0.1px;
+			height: 0.1px;
+			opacity: 0;
+			overflow: hidden;
+			position: absolute;
+			z-index: -1;
+		}
+
+	</style>
+	<body class="trabalho">
+		<ul class="nav nav-tabs">
+			<li><h4 class="title">Trabalho 2 - Manipulação de GLC</h4></li>
+		</ul>
+		<div class="flex">
+
+			<div class="panel panel-default main-panel js-glc-panel">
+			  <div class="panel-body">
+
+			  	<div class="row flex">
+					<div class="col-md-6 flex">
+
+				  		<div class="panel panel-default">
+				  			<div class="panel-heading">Gramática Livre Contexto</div>
+				  			<div class="panel-body panel-automato-1">
+
+				  				<label>GLC:	</label>
+							   	<textarea id="glc-holder" rows="6" cols="50"></textarea>
+							   	<div class="row">
+									<div class="col-md-12 er-validador"></div>
+								</div>
+								<div class="form-group">
+						    		<button class="js-salvar btn btn-success" >Salvar Gramática</button>	
+									<button class="js-carregar btn btn-info" >Carregar Gramática</button>
+									<button class="js-propria btn btn-danger" >Transformar em Própria</button>
+								</div>
+
+				  			</div>
+						</div>
+
+					</div>
+					<div class="col-md-6 flex">
+				  		<div class="panel panel-default">
+				  			<div class="panel-heading">Cálculo First(A) & Follow(A)</div>
+				  			<div class="panel-body panel-automato-1">
+
+				  				<div class="form-group col-md-12">
+				  					<button class="js-first btn btn-success" >Gerar</button>
+								</div>
+								<div class="row col-md-12 flex">
+									<div class="col-md-4 well flex well-lg js-container-first">
+										<label>First:</label>
+									</div>
+									<div class="col-md-4 well flex well-lg js-container-follow">
+										<label>Follow:</label>
+									</div>
+									<div class="col-md-4 well flex well-lg js-container-firstnt">
+										<label>First-NT:</label>
+									</div>
+								</div>
+
+				  			</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row flex">
+					<div class="col-md-12">
+				  		<div class="panel panel-default">
+				  			<div class="panel-heading">Verificar LL(1) & Gerar Tabela</div>
+				  			<div class="panel-body">
+					  			<div class="row">
+					  				<div class="col-md-4"><button class="js-first btn btn-success" >Verificar/Gerar</button></div>
+					  				<div class="col-md-4">G Fatorada:<span class="js-resposta-fatorada"></span></div>
+					  				<div class="col-md-4">G possuí recursão a esquerda:<span class="js-resposta-recursao"></span></div>
+					  			</div>
+					  			<div class="row">
+					  				<div class="js-tabela"></div>
+					  			</div>
+				  			</div>
+				  		</div>
+				  	</div>
+				</div>
+
+				<div class="row flex">
+					<div class="col-md-12">
+				  		<div class="panel panel-default">
+				  			<div class="panel-heading">Reconhecimento de Sentença</div>
+				  			<div class="panel-body">
+					  			<div class="input-group">
+								  <input type="text" class="js-er-input form-control">
+								  <div class="input-group-btn">
+								    <div class="btn btn-success js-abrir-modal-regex js-save-er disabled">Verificar</div>
+								  </div>
+								</div>
+				  			</div>
+				  		</div>
+				  	</div>
+				</div>
+
+		  	</div>
+		</div>
+
+		<!-- Vendor -->
+		<script src="vendor/jquery-1.12.3.min.js"></script>
+		<script src="vendor/bootstrap.min.js"></script>
+		<script src="vendor/underscore.min.js"></script>
+		<script src="vendor/backbone-min.js"></script>
+		<script src="vendor/xregex-all.js"></script>
+		<!-- Formais -->
+		<script src="Glc.class.js"></script>
+		<script src="Propria.class.js"></script>
+		<!-- Views -->
+		<script src="view/glc.view.js"></script>
+		<script src="view/t2.view.js"></script>
+		<script type="text/javascript">
+				var t1View = new TrabalhoView();
+	    </script>
+	</body>
+</html>
+
