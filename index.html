@@ -104,7 +104,8 @@
 								</div>
 								<div class="form-group">
 						    		<button class="js-salvar btn btn-success" >Salvar Gramática</button>	
-									<button class="js-carregar btn btn-info" >Carregar Gramática</button>
+									<input class="js-glc-inputfile" type="file" name="file-glc" id="file-glc" />
+									<label class="btn btn-primary" for="file-glc">Carregar Gramática</label>
 									<button class="js-propria btn btn-danger" >Transformar em Própria</button>
 								</div>
 
@@ -121,14 +122,16 @@
 				  					<button class="js-first btn btn-success" >Gerar</button>
 								</div>
 								<div class="row col-md-12 flex">
+									<label class="col-md-4" >First:</label>
+									<label class="col-md-4" >Follow:</label>
+									<label class="col-md-4" >First-NT:</label>
+								</div>
+								<div class="row col-md-12 flex">
 									<div class="col-md-4 well flex well-lg js-container-first">
-										<label>First:</label>
 									</div>
 									<div class="col-md-4 well flex well-lg js-container-follow">
-										<label>Follow:</label>
 									</div>
 									<div class="col-md-4 well flex well-lg js-container-firstnt">
-										<label>First-NT:</label>
 									</div>
 								</div>
 
@@ -174,6 +177,26 @@
 		  	</div>
 		</div>
 
+		<div class="modal fade" id="saveModal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title">Deseja salvar o automato?</h4>
+		      </div>
+		      <div class="modal-body">
+				  	<label for="salvar" class="control-label requiredField">Escolha o nome do automato:</label>
+				    <div class="input-group col-md-12">
+					  <input type="text" class="js-nome form-control">
+					</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn js-fechar-modal-glc btn-default" data-dismiss="modal">Fechar</button>
+		        <button type="button" class="btn js-salvar-glc btn-primary">Salvar</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
 		<!-- Vendor -->
 		<script src="vendor/jquery-1.12.3.min.js"></script>
 		<script src="vendor/bootstrap.min.js"></script>
@@ -183,6 +206,7 @@
 		<!-- Formais -->
 		<script src="Glc.class.js"></script>
 		<script src="Propria.class.js"></script>
+		<script src="FirstFollow.class.js"></script>
 		<!-- Views -->
 		<script src="view/glc.view.js"></script>
 		<script src="view/t2.view.js"></script>

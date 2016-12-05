@@ -1,3 +1,21 @@
+/*
+S -> A C A
+A -> a A a | B | C
+B -> b B | b
+C -> c C | &
+
+A -> a A | a | B
+B -> b B | b | c
+
+S -> a A | B b | C X
+Y -> D e
+A -> D B
+B -> D D
+D -> d
+X -> C D
+C -> c X
+*/
+
 function Glc () {
 
     this.glc = false;
@@ -6,7 +24,7 @@ function Glc () {
 
         var terminais = [];
         var nTerminais = [];
-        var arrayP = {};
+        var hashP = {};
 
         var arrayProducoes = gramatica.split("\n");
         for (var i = 0; i < arrayProducoes.length; i++ ) {
@@ -29,16 +47,25 @@ function Glc () {
                 }
 
             }
+
+            hashP[ladoEsquerdo.trim()] = [];
+
+            for (var j = 0; j < arrayladoDireito.length; j++ ) {
+                var arraySimbolos = arrayladoDireito[j].trim().split(' ')
+                if (arraySimbolos) {
+                    hashP[ladoEsquerdo.trim()].push(arraySimbolos)
+                }
+            }
+
             nTerminais.push(ladoEsquerdo.trim());
-            arrayP[ladoEsquerdo.trim()] = ladoDireito.split("|");
 
         }
 
         this.glc = {
             vn: nTerminais,
             vt: terminais,
-            p: arrayP,
-            s: Object.keys(arrayP)[0],
+            p: hashP,
+            s: Object.keys(hashP)[0],
         }
 
 	};
@@ -46,20 +73,21 @@ function Glc () {
     this.montarString = function() {
         var string = '';
         var glc = this.glc;
+        console.log(glc)
 
         for ( var producaoIndex in glc.p ) {  
             var producao = glc.p[producaoIndex];
             string += producaoIndex+' -> ';
 
             for (var i = 0; i < producao.length; i++) {
-                if (i == producao.length - 1) {
-                    string += producao[i];
-                } else {
-                    string += producao[i]+' | ';
+                string += producao[i].join(' ')+' ';
+                if (i != producao.length - 1) {
+                    string += '| ';
                 }
             }
             string += '\n';
         }
+
         return string;
     }
 };
