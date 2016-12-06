@@ -86,13 +86,13 @@ function LL1 () {
     }
 
     this.analisadorSentenca = function(tabela, sentenca, inicial) {
-        sentenca = sentenca.match(/[a-z|$]+/g);
+        sentenca = sentenca.match(/[a-z()*+-0-9$]+/g);
         var pilha = [];
         pilha.unshift('$')
         pilha.unshift(inicial)
 
         while( pilha[0] != '$') {
-            if (pilha[0].match(/[a-z|$]+/g)) {
+            if (pilha[0].match(/[a-z()*+-0-9$]+/g)) {
                 if (pilha[0] = sentenca[0]) {
                     pilha.shift();
                     sentenca.shift();

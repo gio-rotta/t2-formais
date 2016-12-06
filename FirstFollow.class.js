@@ -28,7 +28,7 @@ function FirstFollow () {
             var producao = glc.p[ladoEsq];
             for (var i = 0; i < producao.length; i++) {
                 var regra = producao[i];
-                if (regra[0].match(/[a-z]+/g) || regra[0].match(/[&]/g)) {
+                if (regra[0].match(/[a-z()*+-0-9]+/g) || regra[0].match(/[&]/g)) {
                     if (!_.contains(first[ladoEsq], regra[0])) {
                         first[ladoEsq].push(regra[0]);
                     }

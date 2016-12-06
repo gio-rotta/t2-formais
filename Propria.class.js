@@ -99,7 +99,7 @@ function Propria () {
 
                 var pertencentesNe = producao[i];
 
-                var numeroDeTerminais = producao[i].join('').match(/[a-z]/g);
+                var numeroDeTerminais = producao[i].join('').match(/[a-z()*+-0-9]/g);
                 numeroDeTerminais = (numeroDeTerminais)? numeroDeTerminais.length : 0;
 
                 // cria um array das combinacoes do terminais que pertencem a Ne.
@@ -107,7 +107,7 @@ function Propria () {
                 var combinacoesCorretas = [];
 
                 for (var l = 0; l < combinacoes.length; l++) {
-                    var numeroDeTerminaisC = combinacoes[l].match(/[a-z]/g);
+                    var numeroDeTerminaisC = combinacoes[l].match(/[a-z()*+-0-9]/g);
                     numeroDeTerminaisC = (numeroDeTerminaisC)? numeroDeTerminaisC.length : 0;
                     if (numeroDeTerminais == numeroDeTerminaisC) {
                         combinacoesCorretas.push(combinacoes[l])
