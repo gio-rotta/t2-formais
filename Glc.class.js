@@ -70,10 +70,11 @@ function Glc () {
 
 	};
 
-    this.montarString = function() {
+    this.montarString = function(glc) {
         var string = '';
-        var glc = this.glc;
-        console.log(glc)
+        if (!glc || glc == undefined) {
+            var glc = this.glc;
+        }
 
         for ( var producaoIndex in glc.p ) {  
             var producao = glc.p[producaoIndex];

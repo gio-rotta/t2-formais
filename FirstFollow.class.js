@@ -9,7 +9,7 @@ function FirstFollow () {
 
     this.glc = false;
 
-	this.gerarFirst = function(glc) {
+    this.gerarFirst = function(glc) {
         var first = {}
 
         for (var i = 0; i < glc.vn.length; i++) {
@@ -72,7 +72,7 @@ function FirstFollow () {
         }
         
         return first;
-	};
+    };
 
     this.gerarFollow = function(glc, first) {
         var follow = {}
@@ -214,4 +214,4 @@ function FirstFollow () {
     }
 
 };
-	
+    

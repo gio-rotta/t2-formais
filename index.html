@@ -107,6 +107,7 @@
 									<input class="js-glc-inputfile" type="file" name="file-glc" id="file-glc" />
 									<label class="btn btn-primary" for="file-glc">Carregar Gramática</label>
 									<button class="js-propria btn btn-danger" >Transformar em Própria</button>
+									<button class="js-detalhamento btn btn-danger" >Detalhamento</button>
 								</div>
 
 				  			</div>
@@ -193,6 +194,40 @@
 					</div>
 		      </div>
 		      <div class="modal-footer">
+		        <button type="button" class="btn js-fechar-modal-glc btn-default" data-dismiss="modal">Fechar</button>
+		        <button type="button" class="btn js-salvar-glc btn-primary">Salvar</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<div class="modal fade" id="detalhamentoPropria" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title">Detalhamento da transformação em própria</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="row">
+		      		<label class="col-md-12">&-Livre</label>
+		      		<div class="col-md-12">
+						<textarea  id="js-sem-epsilon" rows="6" cols="50"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<label class="col-md-12">Sem produção simples</label>
+					<div class="col-md-12">
+						<textarea id="js-sem-prod-simples" rows="6" cols="50"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<label class="col-md-12">Sem inuteis</label>
+					<div class="col-md-12">
+						<textarea id="js-sem-inuteis" rows="6" cols="50"></textarea>
+					</div>
+				</div>
+			  </div>
+			  <div class="modal-footer">
 		        <button type="button" class="btn js-fechar-modal-glc btn-default" data-dismiss="modal">Fechar</button>
 		        <button type="button" class="btn js-salvar-glc btn-primary">Salvar</button>
 		      </div>

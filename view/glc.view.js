@@ -9,7 +9,8 @@ var GlcView = Backbone.View.extend({
     "click .js-salvar-glc" : "salvarGlc",
     "click .js-first" : "gerarFirstFollow",
     "click .js-gerarTabela" : "gerarTabela",
-    "click .js-verificar" : "analisarSentenca"
+    "click .js-verificar" : "analisarSentenca",
+    "click .js-detalhamento" : "mostrarDetalhamento",
   },
   
   initialize: function(options) {
@@ -40,7 +41,6 @@ var GlcView = Backbone.View.extend({
   },
 
   abrirModalSalvar: function(event) {
-    console.log('este')
     this.$el.append($('#saveModal').modal('show'));
   },
 
@@ -182,6 +182,16 @@ var GlcView = Backbone.View.extend({
       this.$('.js-validador')[0].innerHTML = 'não aceita';
       this.$('.js-validador').addClass('text-danger').removeClass('text-success');
     }
+  },
+
+  mostrarDetalhamento: function(event) {
+    this.$el.append($('#detalhamentoPropria').modal('show'));
+    var stringSemEpsilon = this.GLC.montarString(this.Propria.glcEpsilonLivre);
+    $('#js-sem-epsilon').val(stringSemEpsilon);
+    var stringSemProdSimples = this.GLC.montarString(this.Propria.glcSemProdSimples);
+    $('#js-sem-prod-simples').val(stringSemEpsilon);
+    var stringSemInuteis = this.GLC.montarString(this.Propria.glcSemSimbolosInuteis);
+    $('#js-sem-inuteis').val(stringSemInuteis);
   },
 
 });
