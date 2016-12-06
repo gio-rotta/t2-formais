@@ -8,6 +8,11 @@ B -> b B | A B | &
 function FatoracaoRecursao () {
 
 
+    /**
+     * @author: Giovanni Rotta
+     * Método que retorna o conjunto first formado pelos símbolos de determinada produção,
+     * tanto a produção quanto o conjunto de todos os first são passados por parâmetro. 
+     **/
     this.pegarFirst = function(producao, first) {
         var firstProducao = []
         for (var i = 0; i < producao.length; i++ ) {
@@ -29,6 +34,11 @@ function FatoracaoRecursao () {
         return firstProducao;
     }
 
+    /**
+     * @author: Giovanni Rotta
+     * A partir dos firsts, verifica a intersecção de todas as produções do lado direito de uma produção, se o resultado não for vazio, significa que não está fatorada.
+     * Recebe a gramática e o conjunto de firsts como parâmetro e retorna true para fatorada e false para não fatorada.
+     **/
 	this.verificarFatoracao = function(glc, first) {
         var fatorada = true;
         for ( var producaoIndex in glc.p ) {  
@@ -54,6 +64,11 @@ function FatoracaoRecursao () {
 
     }
 
+    /**
+     * @author: Giovanni Rotta
+     * A partir dos firsts-Nt, verifica se um símbolo não terminal possui ele próprio como first-NT, caso positivo, retorna true, que significa que existe recursão, no caso negativo retorna false,
+     * não possui recursão. Recebe como parâmetro a GLC e o  conjunto de first-NT.
+     **/
     this.verificarRecursao = function(glc, first) {
         var recursao = false;
         for ( var vt in first ) {  

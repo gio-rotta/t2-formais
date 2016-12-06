@@ -9,6 +9,12 @@ function FirstFollow () {
 
     this.glc = false;
 
+    /**
+     * @author: Giovanni Rotta
+     * Método responsável por gerar todos os conjuntos de first, dos símbolos da gramática.
+     * Utiliza os 3 passos aprendidos em classe. Recebe uma GLC como parâmetro e retorna o
+     * conjunto first de todos os símbolos. 
+     **/
     this.gerarFirst = function(glc) {
         var first = {}
 
@@ -74,6 +80,12 @@ function FirstFollow () {
         return first;
     };
 
+    /**
+     * @author: Giovanni Rotta
+     * Método responsável por gerar todos os conjuntos de follow  dos símbolos da gramática.
+     * Utiliza os 3 passos aprendidos em classe.
+     * Recebe uma GLC como parâmetro e retorna o conjunto follow de todos os símbolos.
+     **/
     this.gerarFollow = function(glc, first) {
         var follow = {}
 
@@ -133,6 +145,11 @@ function FirstFollow () {
         return follow;
     }
 
+    /**
+     * @author: Giovanni Rotta
+     * Análogo ao gerarFirst com a exceção de verificar não terminais ao invés de terminais.
+     * Recebe uma GLC como parâmetro e retorna o conjunto first-NT de todos os símbolos não terminais.
+     **/
     this.gerarFirstNt = function(glc) {
         var first = {}
 
@@ -191,6 +208,11 @@ function FirstFollow () {
         return first;
     };
     
+     /**
+     * @author: Giovanni Rotta
+     * Transforma os conjuntos, recebido por parâmetro,
+     * em um texto, explicitando os conjuntos e de fácil leitura para o usuário.
+     **/
     this.gerarString = function(dicionario) {
         var string = '';
 

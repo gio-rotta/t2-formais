@@ -20,6 +20,12 @@ function Glc () {
 
     this.glc = false;
 
+    /**
+     * @author: Giovanni Rotta
+     * A partir do texto escrito no ‘text area’, da interface do usuário, o método separa
+     * as produções, símbolos terminais e não terminas e também símbolo inicial,
+     * construindo o objeto GLC, que possuí estes mesmos atributos.
+     **/
 	this.montarGlc = function(gramatica) {
 
         var terminais = [];
@@ -70,6 +76,11 @@ function Glc () {
 
 	};
 
+    /**
+     * @author: Giovanni Rotta
+     * Dado o objeto glc, atributo desta classe, este método é responsável por agrupar
+     * novamente as produções da maneira correta para ser exibida.
+     **/
     this.montarString = function(glc) {
         var string = '';
         if (!glc || glc == undefined) {

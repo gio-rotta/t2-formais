@@ -11,6 +11,11 @@ function LL1 () {
     this.numeroProducao = {};
     this.producaoNumero = {};
 
+    /**
+     * @author: Guilherme Nakayama
+     * Método que retorna o conjunto first formado pelos símbolos de determinada produção,
+     * tanto a produção quanto o conjunto de todos os first são passados por parâmetro.
+     **/
     this.pegarFirst = function(producao, first) {
         var firstProducao = []
         for (var i = 0; i < producao.length; i++ ) {
@@ -32,6 +37,11 @@ function LL1 () {
         return firstProducao;
     }
 
+    /**
+     * @author: Guilherme Nakayama
+     * Utilizando o algoritmo ensinado em sala, recebendo por parâmetro a GLC, os conjuntos de first e o conjunto de follow, o método utiliza os 3 passos do algoritmo para gerar uma tabela de parsing.
+     * Retorna um objeto bidimensional que representa a tabela de parsing.
+     **/
     this.construirTabelaParsing = function(glc, first, follow) {
         this.numeroProducao = {}
         var tabela = {}
@@ -85,6 +95,13 @@ function LL1 () {
         return tabela
     }
 
+    /**
+     * @author: Guilherme Nakayama
+     * Este método utiliza  algoritmo de análise visto em aula, para reconhecer símbolos da sentença,
+     * e validando ou não de acordo com o topo da pilha e o topo da sentença.
+     * Retorna false para o caso da sentença não ser válida e true para o caso contrário. 
+     * Recebe por parâmetro a tabela, a sentença a ser avaliada e o símbolo inicial da GLC.
+     **/
     this.analisadorSentenca = function(tabela, sentenca, inicial) {
         sentenca = sentenca.match(/[a-z()*+-0-9$]+/g);
         var pilha = [];

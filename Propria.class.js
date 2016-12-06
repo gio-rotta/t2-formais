@@ -4,6 +4,12 @@ function Propria () {
     this.glcSemProdSimples;
     this.glcSemSimbolosInuteis;
 
+    /**
+     * @author: Guilherme Nakayama
+     * A função principal da classe, é responsável por chamar os 3 métodos que geram uma Glc Propria,
+     * o eliminarEpsilon(), eliminarProdSimples() e o eliminarSimbolosInuteis(). Recebe uma GLC como
+     * parâmetro e retorna uma outra GLC, já transformada em própria.
+     **/
     this.gerarGlcPropria = function(glc) {
 
         this.glcEpsilonLivre = this.eliminarEpsilon(glc);
@@ -16,6 +22,12 @@ function Propria () {
 
     }
 
+    /**
+     * @author: Guilherme Nakayama
+     * Esta função é responsável por chamar as duas funções que compõem a eliminação de símbolos
+     * inúteis, são elas eliminarInferteis() e eliminarInalcancaveis(). Recebe uma GLC como parâmetro
+     * e retorna uma outra GLC, sem símbolos inúteis.
+     **/
     this.eliminarSimbolosInuteis = function(glc) {
         glc = this.eliminarInferteis(glc);
         return this.eliminarInalcancaveis(glc);
@@ -37,6 +49,13 @@ function Propria () {
         return fn("", str, []);
     }
 
+    /**
+     * @author: Guilherme Nakayama
+     * Método para eliminar as epsilon transições, utiliza o algoritmo aprendido em aula, construindo
+     * Ne = {A | A pertence Vn e A =>* &}, e a partir de Ne realizar alguns procedimentos para eliminar
+     * as epsilon transições, é necessário a criação de um novo estado inicial, que irá conter epsilon.
+     * Recebe uma GLC como parâmetro e retorna uma outra GLC, sem epsilon transição.
+     **/
     this.eliminarEpsilon = function(glc) {
 
         var contemEpsilon =  false;
@@ -156,6 +175,13 @@ function Propria () {
 
     };
 
+    /**
+     * @author: Guilherme Nakayama
+     * Método responsável por eliminar todas as produções simples da GLC, utiliza o algoritmo aprendido
+     * em aula. Monta conjuntos no qual para todo A pertence a Vn, construa NA = {B | A ->*  B} e a partir
+     * desses conjunto são realizados procedimentos para eliminar as produções simples. Recebe uma GLC
+     * como parâmetro e retorna uma outra GLC, sem produções simples.
+     **/
     this.eliminarProdSimples = function(glc) {
         var chain = {}
         // 1 – Para todo A pertence a Vn, construa NA = {B | A ->*  B}
@@ -232,6 +258,12 @@ function Propria () {
 
     };
 
+    /**
+     * @author: Guilherme Nakayama
+     * Método responsável por eliminar todas as produções inalcançáveis a partir do símbolo inicial
+     * da GLC, utiliza o algoritmo aprendido em aula. Recebe uma GLC como parâmetro e retorna uma outra
+     * GLC, sem produções inalcançáveis. 
+     **/
     this.eliminarInalcancaveis = function(glc) {
 
         var alcancaveis = []
@@ -280,7 +312,11 @@ function Propria () {
 
     };
 
-
+    /**
+     * @author: Guilherme Nakayama
+     * Método responsável por eliminar todas as produções inférteis da GLC, utiliza o algoritmo aprendido em aula.
+     * Recebe uma GLC como parâmetro e retorna uma outra GLC, sem produções inférteis.  
+     **/
     this.eliminarInferteis = function(glc) {
 
         var ferteis = [];
