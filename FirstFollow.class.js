@@ -38,25 +38,34 @@ function FirstFollow () {
 
 
         // 3 - regra
-        for (var ladoEsq in glc.p) {
-            var producao = glc.p[ladoEsq];
-            for (var i = 0; i < producao.length; i++) {
-                var regra = producao[i];
-                if (regra[0].match(/[A-Z]+/g)) {
-                    first[ladoEsq].push(first[regra[0]])
-                    first[ladoEsq] = _.flatten(first[ladoEsq]);
-                    var j = 1;
-                    while(regra[j]) {
-                        if (_.contains(first[regra[j-1]], '&')) {
-                            if (!_.contains(first[ladoEsq], regra[j])) {
-                                first[ladoEsq].push(_.uniq(first[regra[j]]));
-                                first[ladoEsq] = _.flatten(first[ladoEsq]);
-                                first[ladoEsq] = _.uniq(first[ladoEsq]);
-                            }
-                        } else {
-                            break;
+        var mudou = true;
+        while(mudou) {
+            var mudou = false;
+            for (var ladoEsq in glc.p) {
+                var producao = glc.p[ladoEsq];
+                for (var i = 0; i < producao.length; i++) {
+                    var regra = producao[i];
+                    if (regra[0].match(/[A-Z]+/g)) {
+                        if (_.intersection(first[ladoEsq], first[regra[0]]).length != first[regra[0]].length) {
+                            first[ladoEsq].push(first[regra[0]])
+                            first[ladoEsq] = _.flatten(first[ladoEsq]);
+                            var mudou = true;
                         }
-                        j++;
+                        var j = 1;
+                        while(regra[j]) {
+                            if (_.contains(first[regra[j-1]], '&')) {
+                                if (_.intersection(first[ladoEsq], first[regra[j]]).length != first[regra[j]].length) {
+                                    first[ladoEsq].push(_.uniq(first[regra[j]]));
+                                    first[ladoEsq] = _.flatten(first[ladoEsq]);
+                                    first[ladoEsq] = _.uniq(first[ladoEsq]);
+                                    var mudou = true;
+                                }
+                            } else {
+                                break;
+                            }
+                            j++;
+                        }
+                         first[ladoEsq] = _.uniq(first[ladoEsq]);
                     }
                 }
             }
@@ -124,6 +133,64 @@ function FirstFollow () {
         return follow;
     }
 
+    this.gerarFirstNt = function(glc) {
+        var first = {}
+
+        for (var i = 0; i < glc.vn.length; i++) {
+            var nTerminal = glc.vn[i];
+            first[nTerminal] = [];
+        }
+
+        // 2 - regra
+        for (var ladoEsq in glc.p) {
+            var producao = glc.p[ladoEsq];
+            for (var i = 0; i < producao.length; i++) {
+                var regra = producao[i];
+                if (regra[0].match(/[A-Z]+/g)  || regra[0].match(/[&]/g)) {
+                    if (!_.contains(first[ladoEsq], regra[0])) {
+                        first[ladoEsq].push(regra[0]);
+                    }
+                } 
+            }
+        }
+
+              // 3 - regra
+        var mudou = true;
+        while(mudou) {
+            var mudou = false;
+            for (var ladoEsq in glc.p) {
+                var producao = glc.p[ladoEsq];
+                for (var i = 0; i < producao.length; i++) {
+                    var regra = producao[i];
+                    if (regra[0].match(/[A-Z]+/g)) {
+                        if (_.intersection(first[ladoEsq], first[regra[0]]).length != first[regra[0]].length) {
+                            first[ladoEsq].push(first[regra[0]])
+                            first[ladoEsq] = _.flatten(first[ladoEsq]);
+                            var mudou = true;
+                        }
+                        var j = 1;
+                        while(regra[j] && first[regra[j]]) {
+                            if (_.contains(first[regra[j-1]], '&')) {
+                                if (_.intersection(first[ladoEsq], first[regra[j]]).length != first[regra[j]].length) {
+                                    first[ladoEsq].push(_.uniq(first[regra[j]]));
+                                    first[ladoEsq] = _.flatten(first[ladoEsq]);
+                                    first[ladoEsq] = _.uniq(first[ladoEsq]);
+                                    var mudou = true;
+                                }
+                            } else {
+                                break;
+                            }
+                            j++;
+                        }
+                         first[ladoEsq] = _.uniq(first[ladoEsq]);
+                    }
+                }
+            }
+        }
+        
+        return first;
+    };
+    
     this.gerarString = function(dicionario) {
         var string = '';
 
@@ -138,6 +205,7 @@ function FirstFollow () {
                     string += conjunto[i]+' }';
                 }
             }
+            if (conjunto.length == 0) string += ' }';
             string += '<br>';
         }
 

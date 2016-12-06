@@ -146,12 +146,12 @@
 				  			<div class="panel-heading">Verificar LL(1) & Gerar Tabela</div>
 				  			<div class="panel-body">
 					  			<div class="row">
-					  				<div class="col-md-4"><button class="js-first btn btn-success" >Verificar/Gerar</button></div>
+					  				<div class="col-md-4"><button class="js-gerarTabela btn btn-success" >Verificar/Gerar</button></div>
 					  				<div class="col-md-4">G Fatorada:<span class="js-resposta-fatorada"></span></div>
 					  				<div class="col-md-4">G possuí recursão a esquerda:<span class="js-resposta-recursao"></span></div>
 					  			</div>
 					  			<div class="row">
-					  				<div class="js-tabela"></div>
+					  				<div class="col-md-12 js-tabela"></div>
 					  			</div>
 				  			</div>
 				  		</div>
@@ -164,10 +164,13 @@
 				  			<div class="panel-heading">Reconhecimento de Sentença</div>
 				  			<div class="panel-body">
 					  			<div class="input-group">
-								  <input type="text" class="js-er-input form-control">
+								  <input type="text" class="js-er-input js-sentenca form-control">
 								  <div class="input-group-btn">
-								    <div class="btn btn-success js-abrir-modal-regex js-save-er disabled">Verificar</div>
+								    <div class="btn btn-success js-verificar">Verificar</div>
 								  </div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 js-validador"></div>
 								</div>
 				  			</div>
 				  		</div>
@@ -207,6 +210,8 @@
 		<script src="Glc.class.js"></script>
 		<script src="Propria.class.js"></script>
 		<script src="FirstFollow.class.js"></script>
+		<script src="FatoracaoRecursao.class.js"></script>
+		<script src="LL1.class.js"></script>
 		<!-- Views -->
 		<script src="view/glc.view.js"></script>
 		<script src="view/t2.view.js"></script>

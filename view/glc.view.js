@@ -7,7 +7,9 @@ var GlcView = Backbone.View.extend({
     "change .js-glc-inputfile" : "carregarGlc",
     "click .js-propria" : "transformarPropria",
     "click .js-salvar-glc" : "salvarGlc",
-    "click .js-first" : "gerarFirstFollow"
+    "click .js-first" : "gerarFirstFollow",
+    "click .js-gerarTabela" : "gerarTabela",
+    "click .js-verificar" : "analisarSentenca"
   },
   
   initialize: function(options) {
@@ -17,6 +19,9 @@ var GlcView = Backbone.View.extend({
     this.producoes = false;
     this.terminais = false;
     this.naoTerminais = false;
+    this.first = false;
+    this.tabela = false;
+    this.ll1 = false;
 
     this.on('glcValida', this.habilitarBotoes);
   },  
@@ -52,13 +57,20 @@ var GlcView = Backbone.View.extend({
   gerarFirstFollow: function() {
     this.verificarGlc();
     var firstFollow = new FirstFollow();
-    var first = firstFollow.gerarFirst(this.GLC.glc);
-    var stringFirst = firstFollow.gerarString(first)
-    this.$('.js-container-first').append(stringFirst)
-    var follow = firstFollow.gerarFollow(this.GLC.glc, first);
-    var stringFollow = firstFollow.gerarString(follow)
-    this.$('.js-container-follow').append(stringFollow)
-    console.log(follow);
+
+    this.first = firstFollow.gerarFirst(this.GLC.glc);
+    console.log('first', this.first)
+    var stringFirst = firstFollow.gerarString(this.first);
+    this.$('.js-container-first')[0].innerHTML = stringFirst;
+
+    this.follow = firstFollow.gerarFollow(this.GLC.glc, this.first);
+    console.log('follow', this.follow)
+    var stringFollow = firstFollow.gerarString(this.follow)
+    this.$('.js-container-follow')[0].innerHTML = stringFollow;
+
+    this.firstNt = firstFollow.gerarFirstNt(this.GLC.glc);
+    var stringFirstNt = firstFollow.gerarString(this.firstNt)
+    this.$('.js-container-firstnt')[0].innerHTML = stringFirstNt;
   },
 
   download: function(filename, text) {
@@ -95,6 +107,81 @@ var GlcView = Backbone.View.extend({
       }  
     }.bind(this);
     reader.readAsText($in[0].files[0]);
+  },
+
+  gerarTabela: function() {
+
+    if (this.verificarFatorcaoRecursao()){
+      this.montarTabela();
+    }
+
+  },
+
+  verificarFatorcaoRecursao: function() {
+    this.verificarGlc();
+    if (!this.first) {
+      alert('É necessário gerar o first e o follow!')
+      return;
+    }
+    var fatoracaoRecursao = new FatoracaoRecursao();
+    var fatorada = fatoracaoRecursao.verificarFatoracao(this.GLC.glc, this.first);
+    this.$('.js-resposta-fatorada')[0].innerHTML = fatorada;
+
+    var recursao = fatoracaoRecursao.verificarRecursao(this.GLC.glc, this.firstNt);
+    this.$('.js-resposta-recursao')[0].innerHTML = recursao;
+
+    return (fatorada && !recursao);
+    
+  },
+
+  montarTabela: function() {
+    this.ll1 = new LL1();
+    this.tabela = this.ll1.construirTabelaParsing(this.GLC.glc, this.first, this.follow);
+    console.log(this.tabela)
+    this.renderTabela();
+  },
+
+  renderTabela: function() {
+    var linhas = [];
+    for ( var vn in this.tabela) {
+      var linha = '<tr><th class="coluna-inicio" >'+ "-" +'</th>';
+      var colunas = '';
+      for (var vt in this.tabela[vn]) {
+        colunas += '<th>'+vt+'</th>';
+      }
+      linha += colunas+'</tr>';
+      linhas.push(linha);
+      break;
+    }
+
+    for ( var vn in this.tabela) {
+      var linha = '<tr><td class="coluna-inicio">'+ vn +'</td>';
+      var colunas = '';
+      for (var vt in this.tabela[vn]) {
+        colunas += '<td>'+this.tabela[vn][vt]+'</td>';
+      }
+      linha += colunas+'</tr>';
+      linhas.push(linha);
+    }
+
+    this.$('.js-tabela')[0].innerHTML = '<table class="tabela-automato">'+linhas.join('\n')+'</table>';
+  },
+
+  analisarSentenca: function() {
+    if (!this.ll1) {
+      alert('É necessário primeiro, gerar a tabela');
+      return;
+    }
+    var sentenca = this.$('.js-sentenca').val();
+    var resposta = this.ll1.analisadorSentenca(this.tabela, sentenca+' $', this.GLC.glc.s);
+    console.log(resposta)
+    if (resposta) {
+      this.$('.js-validador')[0].innerHTML = 'aceita';
+      this.$('.js-validador').removeClass('text-danger').addClass('text-success');
+    } else {
+      this.$('.js-validador')[0].innerHTML = 'não aceita';
+      this.$('.js-validador').addClass('text-danger').removeClass('text-success');
+    }
   },
 
 });
