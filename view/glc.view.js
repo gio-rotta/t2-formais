@@ -46,9 +46,8 @@ var GlcView = Backbone.View.extend({
 
   salvarGlc: function(event) {
     // serialize JSON directly to a file
-    if (!this.GLC.glc) {
-      this.verificarGlc();
-    }
+    this.verificarGlc();
+    
     var name = $('.js-nome').val();
     this.download(name+'.glc.json', JSON.stringify(this.GLC.glc));
     $(document.body).append(this.$('#saveModal').modal('hide'));
