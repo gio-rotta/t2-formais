@@ -17,11 +17,11 @@ function FatoracaoRecursao () {
         var firstProducao = []
         for (var i = 0; i < producao.length; i++ ) {
             simbolo = producao[i];
-            firstProducao.push(first[simbolo]);
-            firstProducao = _.flatten(first[simbolo]);
-            firstProducao = _.uniq(first[simbolo]);
-            firstProducao = _.difference(firstProducao, ['&']);
+            
+            firstProducao.push( _.difference(first[simbolo], ['&']));
+
             if (_.contains(first[simbolo],'&')) {
+                
                 if (i == producao.length - 1) {
                     firstProducao.push('&');
                     break;
@@ -31,6 +31,9 @@ function FatoracaoRecursao () {
                 break;
             }
         }
+
+        firstProducao = _.flatten(firstProducao);
+        firstProducao = _.uniq(firstProducao);
         return firstProducao;
     }
 

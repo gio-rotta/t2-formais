@@ -43,7 +43,7 @@ function Glc () {
             var arrayladoDireito = ladoDireito.split("|");
 
             for (var j = 0; j < arrayladoDireito.length; j++ ) {
-                var terminal = arrayladoDireito[j].match(/[a-z()*+-0-9]+/g);
+                var terminal = arrayladoDireito[j].match(/[a-z()*+-/;=:,0-9$]+/g);
                 if (terminal) {
                     for (var k = 0; k < terminal.length; k++ ) {
                         if (terminal[k]) {
