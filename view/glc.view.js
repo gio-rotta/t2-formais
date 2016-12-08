@@ -130,7 +130,10 @@ var GlcView = Backbone.View.extend({
     var recursao = fatoracaoRecursao.verificarRecursao(this.GLC.glc, this.firstNt);
     this.$('.js-resposta-recursao')[0].innerHTML = recursao;
 
-    return (fatorada && !recursao);
+    var interseccao = fatoracaoRecursao.verificarInterseccao(this.GLC.glc, this.first, this.follow);
+    if (!interseccao) alert('Ocorreu interseccao não nula entra follows e firsts!')
+
+    return (fatorada && !recursao && interseccao);
     
   },
 

@@ -67,6 +67,20 @@ function FatoracaoRecursao () {
 
     }
 
+    this.verificarInterseccao = function(glc, first, follow) {
+        for ( var producaoIndex in glc.p ) {  
+            var producao = glc.p[producaoIndex];
+
+            if (_.contains(first[producaoIndex], '&') && _.intersection(first[producaoIndex], follow[producaoIndex] ).length != 0) {
+                return false;
+            }
+            
+        }
+
+        return true;
+
+    }
+
     /**
      * @author: Giovanni Rotta
      * A partir dos firsts-Nt, verifica se um símbolo não terminal possui ele próprio como first-NT, caso positivo, retorna true, que significa que existe recursão, no caso negativo retorna false,
